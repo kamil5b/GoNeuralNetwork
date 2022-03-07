@@ -25,7 +25,8 @@ func (L Layer) calculate(inputs []float64) []float64 {
 func (layer *Layer) calculateDelta(err []float64) {
 	for i, neuron := range (*layer).Neurons {
 		td := layer.DerivativeFunc((*neuron).tmp_sum)
-		(*neuron).Delta = err[i] * td
+		tmp := err[i] * td
+		(*neuron).Delta = float64(int(tmp*10000)) / 10000
 	}
 }
 
@@ -37,9 +38,11 @@ func (layer *Layer) updateLayer(lrate float64, inputs []float64) {
 		//fmt.Println("===================")
 		for j := range inputs {
 			//INI SETIAP WEIGHT
-			neuron.Weight[j] -= lrate * neuron.Delta * inputs[j]
+			tmp := lrate * neuron.Delta * inputs[j]
+			neuron.Weight[j] -= float64(int(tmp*10000)) / 10000
 		}
 		//INI BIAS
-		neuron.Bias -= lrate * neuron.Delta
+		tmp := lrate * neuron.Delta
+		neuron.Bias -= float64(int(tmp*10000)) / 10000
 	}
 }

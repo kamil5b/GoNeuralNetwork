@@ -1,9 +1,5 @@
 package GoNeuralNetwork
 
-import (
-	"math/rand"
-)
-
 type Neuron struct {
 	Weight []float64 //Weight itu bobot setiap input
 	Delta  float64
@@ -30,11 +26,14 @@ type NeuralNetwork struct {
 func CreateNeuron(n_inputs int) Neuron {
 	weight := make([]float64, n_inputs)
 	for i := 0; i < n_inputs; i++ {
-		weight[i] = rand.NormFloat64()
+		tmp := RandFloat(-1.0, 1.0)
+		weight[i] = float64(int(tmp*10000)) / 10000
 	}
+	tmp := RandFloat(-1.0, 1.0)
+	bias := float64(int(tmp*10000)) / 10000
 	return Neuron{
 		Weight: weight,
-		Bias:   rand.NormFloat64(),
+		Bias:   bias,
 		Delta:  0,
 		Active: true,
 	}

@@ -25,7 +25,10 @@ func (N NeuralNetwork) PredictSingle(input []float64) int {
 		input = n.calculate(input)
 	}
 	output := input
-	//fmt.Println(output)
+	if output[0] != output[1] {
+
+		fmt.Println(output)
+	}
 	_, _, _, idx := findMinAndMaxFloat64(output)
 	return idx
 }
@@ -58,7 +61,8 @@ func (N *NeuralNetwork) backwardPropagate(expected float64) {
 				nextLayer := ((*N).Layers)[i+1]
 				for _, neuron := range nextLayer.Neurons {
 					//cost/bias derivative
-					err += ((*neuron).Weight[j] * (*neuron).Delta)
+					tmp := ((*neuron).Weight[j] * (*neuron).Delta)
+					err += float64(int(tmp*10000)) / 10000
 				}
 				//err = float64(int(err*10000)) / 10000
 				arrError = append(arrError, err)

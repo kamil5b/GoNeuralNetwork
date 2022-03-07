@@ -1,5 +1,7 @@
 package GoNeuralNetwork
 
+import "math/rand"
+
 func findMinAndMaxFloat64(a []float64) (min, max float64, imin, imax int) {
 	min, max = a[0], a[0]
 	imin, imax = 0, 0
@@ -46,4 +48,8 @@ func ConfusionMatrix(predictions []int, actual []int) [][]int {
 		matrix[actual[i]][predictions[i]] += 1
 	}
 	return matrix
+}
+
+func RandFloat(min, max float64) float64 {
+	return min + rand.Float64()*(max-min)
 }
